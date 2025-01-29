@@ -495,13 +495,13 @@ body {
 .dashboard-container {
   width: 98.9vw;
   padding-top: 6rem;
-  background-color: #d8e3eb; 
+  background-color: #193b54;
 }
 
 .dashboard-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2d3748; 
+  color: rgb(12, 8, 8); 
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -523,6 +523,10 @@ body {
   flex-wrap: wrap;
 }
 
+.section{
+  color:white;
+}
+
 .stat-item {
   background-color: white;
   padding: 1.5rem;
@@ -536,13 +540,13 @@ body {
 .stat-item h4 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #2d3748;
+  color: rgb(24, 16, 16);
 }
 
 .stat-item p {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #3182ce; 
+  color: rgb(26, 46, 72); 
 }
 
 .table-container-new {
