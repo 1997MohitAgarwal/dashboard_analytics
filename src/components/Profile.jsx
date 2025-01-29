@@ -1,83 +1,117 @@
-import React from 'react';
+import { useState, useEffect } from "react"
 
-function Profile() {
-  const user = {
-    name: "Mohit Agarwal",
+export default function ProfilePage() {
+  const [user, setUser] = useState({
     email: "user@example.com",
+    name: "Mohit Agarwal",
     phone: "+1 (555) 123-4567",
-    address: "123 Main Street, Bokakhat, Assam",
+    address: "123 Main St, Anytown, USA",
     profilePicture: "https://randomuser.me/api/portraits/men/1.jpg",
-    bio: "A passionate developer with a love for learning new technologies and building amazing projects.",
-    jobTitle: "Software Engineer",
-    company: "Tech Solutions Inc.",
-    linkedin: "https://www.linkedin.com/in/mohitagarwal1238/",
-    github: "https://github.com/1997MohitAgarwal",
-    website: "https://portfolio-56-vercel.app",
+    bio: "Passionate developer and tech enthusiast",
+    jobTitle: "Senior Software Engineer",
+    company: "Tech Innovations Inc.",
+    linkedin: "linkedin.com/in/agarwalmohit",
+    github: "github.com/1997Agarwal",
+    website: "mohit_agarwal.com",
     twitter: "@agarwal_mohit",
     birthday: "1997-08-16",
-  };
+  })
+
+  const [isEditing, setIsEditing] = useState(false)
+  const [editedUser, setEditedUser] = useState({ ...user })
+
+  useEffect(() => {
+    const savedUserDetails = localStorage.getItem("userDetails")
+    if (savedUserDetails) {
+      const parsedUser = JSON.parse(savedUserDetails)
+      setUser(parsedUser)
+      setEditedUser(parsedUser)
+    }
+  }, [])
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setEditedUser((prevUser) => ({ ...prevUser, [name]: value }))
+  }
+
+  const handleEditClick = () => {
+    setIsEditing(true)
+  }
+
+  const handleSaveClick = () => {
+    setUser(editedUser)
+    setIsEditing(false)
+    localStorage.setItem("userDetails", JSON.stringify(editedUser))
+  }
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <div className="profile-picture">
-          <img
-            src={user.profilePicture}
-            alt="Profile"
-          />
-        </div>
+    <div className="profile-container max-w-2xl mx-auto p-6">
+      <div className="profile-header flex items-center mb-6">
+        <img
+          src={user.profilePicture || "/placeholder.svg"}
+          alt="Profile"
+          className="profile-picture w-24 h-24 rounded-full mr-4"
+        />
         <div className="profile-info">
-          <h2>{user.name}</h2>
+          {isEditing ? (
+            <input
+              type="text"
+              name="name"
+              value={editedUser.name}
+              onChange={handleChange}
+              className="edit-input mb-2"
+            />
+          ) : (
+            <h2 style={{color:"white"}} className="text-2xl font-bold">{user.name}</h2>
+          )}
           <p>{user.email}</p>
         </div>
       </div>
 
-      <div className="profile-details">
-        <div className="details-grid">
-          <div className="detail-item">
-            <strong>Phone:</strong>
-            <p>{user.phone}</p>
-          </div>
-          <div className="detail-item">
-            <strong>Address:</strong>
-            <p>{user.address}</p>
-          </div>
-          <div className="detail-item">
-            <strong>Bio:</strong>
-            <p>{user.bio}</p>
-          </div>
-          <div className="detail-item">
-            <strong>Job Title:</strong>
-            <p>{user.jobTitle}</p>
-          </div>
-          <div className="detail-item">
-            <strong>Company:</strong>
-            <p>{user.company}</p>
-          </div>
-          <div className="detail-item">
-            <strong>LinkedIn:</strong>
-            <p>{user.linkedin}</p>
-          </div>
-          <div className="detail-item">
-            <strong>GitHub:</strong>
-            <p>{user.github}</p>
-          </div>
-          <div className="detail-item">
-            <strong>Website:</strong>
-            <p>{user.website}</p>
-          </div>
-          <div className="detail-item">
-            <strong>Twitter:</strong>
-            <p>{user.twitter}</p>
-          </div>
-          <div className="detail-item">
-            <strong>Birthday:</strong>
-            <p>{user.birthday}</p>
-          </div>
+      <div className="profile-details mb-6">
+        <div className="details-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            { label: "Phone", name: "phone" },
+            { label: "Address", name: "address" },
+            { label: "Bio", name: "bio", type:"textarea" },
+            { label: "Job Title", name: "jobTitle" },
+            { label: "Company", name: "company" },
+            { label: "LinkedIn", name: "linkedin" },
+            { label: "GitHub", name: "github" },
+            { label: "Website", name: "website" },
+            { label: "Twitter", name: "twitter" },
+            { label: "Birthday", name: "birthday", type: "date" },
+          ].map(({ label, name, type }) => (
+            <div className="detail-item" key={name}>
+              <strong style={{color:"gray"}}>{label}:</strong>
+              {isEditing ? (
+                <input
+                  type={type?type:"text"}
+                  name={name}
+                  value={editedUser[name]}
+                  onChange={handleChange}
+                  className="edit-input w-full"
+                />
+              ) : (
+                <p style={{color:"white"}}>{user[name]}</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
+
+      <div className="profile-actions">
+        {isEditing ? (
+          <button onClick={handleSaveClick} className="save-btn">
+            Save
+          </button>
+        ) : (
+          <button onClick={handleEditClick} className="edit-btn">
+            Edit
+          </button>
+        )}
+      </div>
     </div>
-  );
+  )
 }
 
-export default Profile;
