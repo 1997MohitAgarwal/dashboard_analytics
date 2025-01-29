@@ -21,7 +21,6 @@ const Sidebar = () => {
   function handleLogout(){
     setIsOpen(false)
     logout();
-    navigate('/login');
   }
 
   function handleClick(){
