@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2'; // Import Bar chart from react-chartjs-2
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import { color } from 'chart.js/helpers';
 
 // Register necessary components for Chart.js
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
@@ -22,7 +23,7 @@ const Dashboard = () => {
         {
           label: 'Sales',
           data: [120, 150, 180, 130, 220, 170, 250], // Mock sales data for 7 days
-          backgroundColor: 'rgb(77, 49, 204)', // Solid color for the bars
+          backgroundColor: 'rgb(52, 121, 161)', // Solid color for the bars
           borderColor: 'rgb(13, 87, 87)', // Border color for bars
           borderWidth: 1, // Thin border for the bars
           barThickness: 30, // Set the thickness of the bars
@@ -41,6 +42,7 @@ const Dashboard = () => {
         font: {
           size: 20,
         },
+        color: '#fff', // Title color set to white
         padding: {
           bottom: 20,
         },
@@ -57,6 +59,7 @@ const Dashboard = () => {
           display: false, // Hide grid lines on x-axis
         },
         ticks: {
+          color: '#fff', // X-axis labels color set to white
           font: {
             size: 14,
             weight: 'bold',
@@ -68,6 +71,7 @@ const Dashboard = () => {
           display: false, // Hide grid lines on y-axis
         },
         ticks: {
+          color: '#fff', // Y-axis labels color set to white
           font: {
             size: 14,
             weight: 'bold',
@@ -77,6 +81,7 @@ const Dashboard = () => {
       },
     },
   };
+  
 
 
   // Additional data for the dashboard
