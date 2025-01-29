@@ -4,7 +4,9 @@ Follow these steps to run the project locally.
 Prerequisites
 Install Node.js
 
-
+Libraries Used
+Chart.js - For creating interactive charts.
+React Router DOM - For routing and navigation in the React app.
 
 Steps::
 
